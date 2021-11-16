@@ -24,10 +24,10 @@ def detect(grayscale_image, input_image):
         cv2.rectangle(input_image, (x,y), (x+w, y+h), (255,0,0), 2 )
         cropped_face_gray = grayscale_image[y:y+h, x:x+w]
         cropped_face = input_image[y:y+h, x:x+w]
-        eyes = eye_cascade.detectMultiScale(cropped_face_gray, 1.1, 5 )
+        eyes = eye_cascade.detectMultiScale(cropped_face_gray, 1.1, 22 )
         for(eye_x, eye_y, eye_w, eye_h) in eyes:
             cv2.rectangle(cropped_face, (eye_x, eye_y), (eye_x+eye_w, eye_y+eye_h), (0,255,0), 2)
-        smiles = smile_cascade.detectMultiScale(cropped_face_gray, 1.1, 100 )
+        smiles = smile_cascade.detectMultiScale(cropped_face_gray, 1.7, 22 )
         for(smile_x, smile_y, smile_w, smile_h) in smiles:
             cv2.rectangle(cropped_face, (smile_x, smile_y), (smile_x+smile_w, smile_y+smile_h), (0,0,255), 2)
     return input_image
