@@ -7,9 +7,12 @@ import cv2
 
 # step_1 load cascades values
 #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +  'haarcascade_frontalface_default.xml')
 #https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_eye.xml
-eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +  'haarcascade_eye.xml')
+#https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_smile.xml
+smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades +  'haarcascade_smile.xml')
+
 
 # step_2 Defining a function for detection
 def detect(grayscale_image, input_image):
@@ -24,6 +27,9 @@ def detect(grayscale_image, input_image):
         eyes = eye_cascade.detectMultiScale(cropped_face_gray, 1.1, 5 )
         for(eye_x, eye_y, eye_w, eye_h) in eyes:
             cv2.rectangle(cropped_face, (eye_x, eye_y), (eye_x+eye_w, eye_y+eye_h), (0,255,0), 2)
+        smiles = smile_cascade.detectMultiScale(cropped_face_gray, 1.1, 100 )
+        for(smile_x, smile_y, smile_w, smile_h) in smiles:
+            cv2.rectangle(cropped_face, (smile_x, smile_y), (smile_x+smile_w, smile_y+smile_h), (0,0,255), 2)
     return input_image
 
 #face recognition script using webcam
